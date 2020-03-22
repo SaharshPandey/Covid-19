@@ -7,23 +7,19 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
 import com.saharsh.covid_19.R
 import com.saharsh.covid_19.countryList.model.CountryDataResponse
 import com.saharsh.covid_19.countryList.model.SingleCountryData
 import com.saharsh.covid_19.countryList.viewmodel.CountryListViewModel
 import kotlinx.android.synthetic.main.activity_country_list.*
-import kotlinx.android.synthetic.main.selected_country_data.*
+import kotlinx.android.synthetic.main.activity_country_list.errorScreen
+import kotlinx.android.synthetic.main.error_screen.*
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
 
@@ -38,8 +34,8 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
     }
 
     private fun init() {
-
         back.setOnClickListener { finish() }
+        tryAgain.setOnClickListener { setUpViewModel() }
         iv_search.setOnClickListener {
             et_search.hideKeyboard()
         }
@@ -52,18 +48,22 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!countryListData.isNullOrEmpty()) {
-                    val searchListData: MutableList<SingleCountryData> = ArrayList()
-                    countryListData.forEach {
-                        if(it.country!!.toLowerCase().contains(et_search.text.toString().toLowerCase())) {
-                            searchListData.add(it)
-                        }
-                    }
-                    countryListAdapter.setItems(searchListData)
-                }
+                searchSpecific()
             }
 
         })
+    }
+
+    private fun searchSpecific() {
+        if (!countryListData.isNullOrEmpty()) {
+            val searchListData: MutableList<SingleCountryData> = ArrayList()
+            countryListData.forEach {
+                if(it.country!!.toLowerCase().contains(et_search.text.toString().toLowerCase())) {
+                    searchListData.add(it)
+                }
+            }
+            countryListAdapter.setItems(searchListData)
+        }
     }
 
     private fun setUpRecyclerView() {
@@ -84,12 +84,17 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
             Observer<CountryDataResponse> { result ->
                 run {
                     countryListData.clear()
-                    if (result.statusCode == 200 && result.data.covid19Stats != null) {
+                    if (result.statusCode == 200 && result.data?.covid19Stats != null) {
                         countryListData.addAll(result.data.covid19Stats)
                     }
                 }
                 loadingScreen.visibility = View.GONE
-                countryListAdapter.setItems(countryListData)
+                if(!countryListData.isNullOrEmpty()) {
+                    searchSpecific()
+                    errorScreen.visibility = View.GONE
+                } else {
+                    errorScreen.visibility = View.VISIBLE
+                }
             })
 
     }

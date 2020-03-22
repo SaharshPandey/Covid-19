@@ -1,4 +1,4 @@
-package com.saharsh.covid_19.countryList
+package com.saharsh.covid_19.countryList.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +14,7 @@ class CountryListRepository {
         CountryListApiFetcher().getCountryDataList()
             .enqueue(object : retrofit2.Callback<CountryDataResponse> {
                 override fun onFailure(call: Call<CountryDataResponse>, t: Throwable) {
+                    countryDataResponse.value = CountryDataResponse.EMPTY
                     Log.d("on Failure :", "retrofit error")
                 }
 

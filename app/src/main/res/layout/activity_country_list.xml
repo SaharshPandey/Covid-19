@@ -34,6 +34,16 @@
             android:text="Search your country"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/reload"
+            android:foreground="?selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:src="@drawable/ic_reload" />
     </RelativeLayout>
     <EditText
         android:id="@+id/et_search"
@@ -126,5 +136,13 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/handwash" />
     </RelativeLayout>
+
+    <include
+        android:id="@+id/errorScreen"
+        layout="@layout/error_screen"
+        android:visibility="gone"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Covid-19</string>
+    <string name="app_name">Covid-19 Monitor</string>
     <string name="search_country">Search country</string>
     <string name="region">REGION</string>
     <string name="country">COUNTRY</string>
     <string name="countries_details">Infected countries by COVID - 19</string>
-    <string name="reports_details">Data related to the disease</string>
+    <string name="reports_details">Total data related to the disease</string>
     <string name="prevention_details">Help you avoid the risk of infection</string>
     <string name="symptoms_details">Signs identify the risk of infection</string>
     <string name="symptoms">

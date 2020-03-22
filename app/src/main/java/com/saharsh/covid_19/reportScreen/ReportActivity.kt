@@ -14,6 +14,8 @@ import com.saharsh.covid_19.R
 import com.saharsh.covid_19.countryList.model.CountryDataResponse
 import com.saharsh.covid_19.countryList.viewmodel.CountryListViewModel
 import kotlinx.android.synthetic.main.activity_report.*
+import kotlinx.android.synthetic.main.activity_report.errorScreen
+import kotlinx.android.synthetic.main.error_screen.*
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,6 +40,7 @@ class ReportActivity : AppCompatActivity() {
         tv_totalCases.text = getFormattedNumber(totalCases)
         tv_deathsCases.text = getFormattedNumber(totalDeaths)
         back.setOnClickListener { finish() }
+        tryAgain.setOnClickListener { setUpViewModel() }
     }
 
     private fun setPieChart() {
@@ -88,13 +91,16 @@ class ReportActivity : AppCompatActivity() {
             this,
             Observer<CountryDataResponse> { result ->
                 run {
-                    if (result.statusCode == 200 && result.data.covid19Stats != null) {
+                    if (result.statusCode == 200 && result.data?.covid19Stats != null) {
                         for (data in result.data.covid19Stats) {
+                            errorScreen.visibility = View.GONE
                             totalRecovered += data.recovered!!.toLong()
                             totalConfirmed += data.confirmed!!.toLong()
                             totalDeaths += data.deaths!!.toLong()
                             totalCases = totalRecovered + totalDeaths + totalConfirmed
                         }
+                    } else {
+                        errorScreen.visibility = View.VISIBLE
                     }
                 }
                 maskLoader.visibility = View.GONE

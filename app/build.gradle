@@ -49,5 +49,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'com.airbnb.android:lottie:3.4.0'
-
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

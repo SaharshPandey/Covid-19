@@ -13,10 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".preventionScreen.PreventionActivity"></activity>
-        <activity android:name=".symptomsScreen.SymptomsActivity" />
-        <activity android:name=".reportScreen.ReportActivity" />
-        <activity android:name=".homeScreen.HomeScreenActivity">
+        <activity android:name=".newsScreen.NewsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".preventionScreen.PreventionActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".symptomsScreen.SymptomsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".reportScreen.ReportActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".homeScreen.HomeScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +32,8 @@
         </activity>
         <activity
             android:name=".countryList.CountryListActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -67,7 +67,11 @@ class CountryListAdapter(val context: Context) :
     }
 
     private fun getCountryCode(countryName: String) =
-        Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
+        if(countryName == "US") {
+            countryName
+        } else {
+            Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
+        }
 
     private fun getFormattedNumber(number: Long): String? {
         return NumberFormat.getNumberInstance(Locale.US).format(number)

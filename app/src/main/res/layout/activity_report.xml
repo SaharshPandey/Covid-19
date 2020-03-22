@@ -34,6 +34,16 @@
             android:text="COVID - 19 Global Cases"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/reload"
+            android:foreground="?selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_reload" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,15 +62,15 @@
             android:layout_marginStart="16dp" />
 
         <TextView
+            android:id="@+id/pie_hint"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:text="Total Cases"
-            android:id="@+id/pie_hint"
-            android:visibility="gone"
             android:layout_marginStart="16dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/lato_bold"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="Total Cases"
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/maskLoader"
@@ -378,17 +388,12 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/livemap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll2"/>
-
+    <include
+        android:id="@+id/errorScreen"
+        layout="@layout/error_screen"
+        android:visibility="gone"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
