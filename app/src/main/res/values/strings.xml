@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Covid-19</string>
+    <string name="search_country">Search country</string>
+    <string name="region">REGION</string>
+    <string name="country">COUNTRY</string>
+    <string name="countries_details">Infected countries by COVID - 19</string>
+    <string name="reports_details">Data related to the disease</string>
+    <string name="prevention_details">Help you avoid the risk of infection</string>
+    <string name="symptoms_details">Signs identify the risk of infection</string>
+    <string name="symptoms">
+        The COVID-19 virus affects different people in different ways.  COVID-19 is a respiratory disease and most infected people will develop mild to moderate symptoms and recover without requiring special treatment.  People who have underlying medical conditions and those over 60 years old have a higher risk of developing severe disease and death.\n\nCommon symptoms include:\n1. fever\n2. tiredness\n3. dry cough.\n\n
+Other symptoms include:\n4. shortness of breath\n5. aches and pains\n6. sore throat\n
+and very few people will report diarrhoea, nausea or a runny nose.\n\nPeople with mild symptoms who are otherwise healthy should self-isolate and contact their medical provider or a COVID-19 information line for advice on testing and referral.\n\nPeople with fever, cough or difficulty breathing should call their doctor and seek medical attention.
+    </string>
+    <string name="preventions">To prevent infection and to slow transmission of COVID-19, do the following:\n\n1. Wash your hands regularly with soap and water, or clean them with alcohol-based hand rub.\n2. Maintain at least 1 metre distance between you and people coughing or sneezing.\n3. Avoid touching your face.\n4. Cover your mouth and nose when coughing or sneezing.\n5. Stay home if you feel unwell.\n6. Refrain from smoking and other activities that weaken the lungs.\n7. Practice physical distancing by avoiding unnecessary travel and staying away from large groups of people.</string>
+</resources>

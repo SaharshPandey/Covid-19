@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#003CBF</color>
+    <color name="colorPrimaryDark">#003CBF</color>
+    <color name="colorAccent">#255AD2</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="grey">#F0F2F3</color>
+    <color name="bg_color">#FDFDFD</color>
+    <color name="dark_grey">#ACB5C7</color>
+    <color name="recovered">#08CAFD</color>
+    <color name="deaths">#FE5B4D</color>
+    <color name="confirmed">#003CBF</color>
+
+</resources>
