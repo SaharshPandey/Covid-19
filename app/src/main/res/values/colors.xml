@@ -12,5 +12,6 @@
     <color name="recovered">#08CAFD</color>
     <color name="deaths">#FE5B4D</color>
     <color name="confirmed">#003CBF</color>
+    <color name="yellow">#FFDA2D</color>
 
 </resources>

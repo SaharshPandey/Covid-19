@@ -7,12 +7,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saharsh.covid_19.R
+import com.saharsh.covid_19.countryList.model.CountryData
 import com.saharsh.covid_19.countryList.model.CountryDataResponse
-import com.saharsh.covid_19.countryList.model.SingleCountryData
 import com.saharsh.covid_19.countryList.viewmodel.CountryListViewModel
 import kotlinx.android.synthetic.main.activity_country_list.*
 import kotlinx.android.synthetic.main.activity_country_list.errorScreen
@@ -23,8 +24,8 @@ import kotlin.collections.ArrayList
 
 class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
 
-    var countryListData: MutableList<SingleCountryData> = ArrayList()
-    var countryListAdapter: CountryListAdapter = CountryListAdapter(this)
+    private var countryListData: MutableList<CountryData> = ArrayList()
+    private var countryListAdapter: CountryListAdapter = CountryListAdapter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_list)
@@ -37,6 +38,9 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
         back.setOnClickListener { finish() }
         tryAgain.setOnClickListener { setUpViewModel() }
         iv_search.setOnClickListener {
+            if(et_search.text.isNotEmpty()) {
+                et_search.setText("")
+            }
             et_search.hideKeyboard()
         }
         et_search.addTextChangedListener(object : TextWatcher {
@@ -49,14 +53,23 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchSpecific()
+                showClear(et_search.text.toString())
             }
 
         })
     }
 
+    private fun showClear(search: String) {
+        if(search.isNotEmpty()) {
+            iv_search.setImageResource(R.drawable.ic_close)
+        } else {
+            iv_search.setImageResource(R.drawable.ic_search)
+        }
+    }
+
     private fun searchSpecific() {
         if (!countryListData.isNullOrEmpty()) {
-            val searchListData: MutableList<SingleCountryData> = ArrayList()
+            val searchListData: MutableList<CountryData> = ArrayList()
             countryListData.forEach {
                 if(it.country!!.toLowerCase().contains(et_search.text.toString().toLowerCase())) {
                     searchListData.add(it)
@@ -84,8 +97,8 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
             Observer<CountryDataResponse> { result ->
                 run {
                     countryListData.clear()
-                    if (result.statusCode == 200 && result.data?.covid19Stats != null) {
-                        countryListData.addAll(result.data.covid19Stats)
+                    if (!result.response.isNullOrEmpty()) {
+                        countryListData.addAll(result.response)
                     }
                 }
                 loadingScreen.visibility = View.GONE
@@ -99,7 +112,7 @@ class CountryListActivity : AppCompatActivity(), CountryListAdapter.Listener {
 
     }
 
-    override fun onClick(countryData: SingleCountryData) {
+    override fun onClick(countryData: CountryData) {
         /*country_name.text = countryData.country
         val arrayList: ArrayList<PieEntry> = ArrayList()
         arrayList.add(PieEntry(countryData.confirmed!!.toFloat(), 0))

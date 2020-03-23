@@ -1,7 +1,7 @@
 package com.saharsh.covid_19.preventionScreen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.saharsh.covid_19.R
 import kotlinx.android.synthetic.main.activity_prevention.*
 

@@ -1,10 +1,8 @@
 package com.saharsh.covid_19.countryList.model
 
 data class CountryDataResponse(
-    val error: Boolean? = true,
-    val statusCode: Int? = 0,
-    val message: String? = "",
-    val data: CountryData? = CountryData.EMPTY
+    val results: Int? = 0,
+    val response: List<CountryData>? = emptyList()
 ) {
     companion object {
         val EMPTY = CountryDataResponse()
@@ -12,8 +10,9 @@ data class CountryDataResponse(
 }
 
 data class CountryData(
-    val lastChecked: String? = "",
-    val covid19Stats: List<SingleCountryData>? = emptyList()
+    val country: String? = "",
+    val cases: CasesStatus? = CasesStatus.EMPTY,
+    val deaths: DeathStatus? = DeathStatus.EMPTY
 ) {
     companion object {
         val EMPTY = CountryData()

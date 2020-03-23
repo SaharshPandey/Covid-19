@@ -33,7 +33,7 @@
             android:fontFamily="@font/lato_bold"
             android:text="Search your country"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/reload"

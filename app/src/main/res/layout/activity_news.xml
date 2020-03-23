@@ -31,7 +31,7 @@
             android:fontFamily="@font/lato_bold"
             android:text="Covid-19 News"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/reload"
@@ -64,6 +64,7 @@
             android:id="@+id/animation_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="8dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/skeleton"

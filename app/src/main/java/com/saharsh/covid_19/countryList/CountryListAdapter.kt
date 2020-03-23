@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.saharsh.covid_19.AppConstants
 import com.saharsh.covid_19.R
-import com.saharsh.covid_19.countryList.model.SingleCountryData
+import com.saharsh.covid_19.countryList.model.CountryData
 import kotlinx.android.synthetic.main.country_list_item.view.*
 import java.text.NumberFormat
 import java.util.*
@@ -18,11 +18,11 @@ import kotlin.collections.ArrayList
 
 class CountryListAdapter(val context: Context) :
     RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder>() {
-    var countryListData: List<SingleCountryData> = ArrayList()
+    var countryListData: List<CountryData> = ArrayList()
     private var listener: Listener = Listener.NO_OP
     private var lastPos: Int = -1
 
-    fun setItems(countryListData: List<SingleCountryData>) {
+    fun setItems(countryListData: List<CountryData>) {
         this.countryListData = countryListData
         notifyDataSetChanged()
     }
@@ -44,10 +44,26 @@ class CountryListAdapter(val context: Context) :
     override fun onBindViewHolder(holder: CountryListViewHolder, position: Int) {
         val countryData = countryListData[position]
         holder.itemView.countryName.text = countryData.country
-        holder.itemView.province.text = countryData.province
-        holder.itemView.tv_confirmed.text = getFormattedNumber(countryData.confirmed!!.toLong())
-        holder.itemView.tv_recovered.text = getFormattedNumber(countryData.recovered!!.toLong())
-        holder.itemView.tv_death.text = getFormattedNumber(countryData.deaths!!.toLong())
+        holder.itemView.tv_confirmed.text =
+            getFormattedNumber(countryData.cases?.active?.toLong() ?: 0)
+        holder.itemView.tv_recovered.text =
+            getFormattedNumber(countryData.cases?.recovered?.toLong() ?: 0)
+        holder.itemView.tv_death.text = getFormattedNumber(countryData.deaths?.total?.toLong() ?: 0)
+
+        if(countryData.cases?.new?.substring(1)?.toInt() ?: 0 == 0) {
+            holder.itemView.tv_confirmed_new.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+        }
+        holder.itemView.tv_confirmed_new.text =
+            "(+".plus(getFormattedNumber(countryData.cases?.new?.substring(1)?.toLong() ?: 0) + ")")
+
+        if(countryData.deaths?.new?.substring(1)?.toInt() ?: 0 == 0) {
+            holder.itemView.tv_death_new.setTextColor(ContextCompat.getColor(context, R.color.dark_grey))
+        }
+        holder.itemView.tv_death_new.text = "(+".plus(
+            getFormattedNumber(
+                countryData.deaths?.new?.substring(1)?.toLong() ?: 0
+            ) + ")"
+        )
 
         holder.itemView.itemView.setBackgroundColor(
             ContextCompat.getColor(
@@ -67,10 +83,22 @@ class CountryListAdapter(val context: Context) :
     }
 
     private fun getCountryCode(countryName: String) =
-        if(countryName == "US") {
-            countryName
-        } else {
-            Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
+        when (countryName) {
+            "USA" -> {
+                "US"
+            }
+            "UK" -> {
+                Locale.getISOCountries().find { Locale("", it).displayCountry == "United Kingdom" }
+            }
+            "S.-Korea" -> {
+                Locale.getISOCountries().find { Locale("", it).displayCountry == "South Korea" }
+            }
+            "Saudi-Arabia" -> {
+                Locale.getISOCountries().find { Locale("", it).displayCountry == "Saudi Arabia" }
+            }
+            else -> {
+                Locale.getISOCountries().find { Locale("", it).displayCountry == countryName }
+            }
         }
 
     private fun getFormattedNumber(number: Long): String? {
@@ -80,11 +108,11 @@ class CountryListAdapter(val context: Context) :
     class CountryListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     interface Listener {
-        fun onClick(countryData: SingleCountryData)
+        fun onClick(countryData: CountryData)
 
         companion object {
             val NO_OP: Listener = object : Listener {
-                override fun onClick(countryData: SingleCountryData) {
+                override fun onClick(countryData: CountryData) {
                     // NO OP
                 }
             }

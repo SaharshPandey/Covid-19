@@ -11,7 +11,7 @@ class CountryListApiFetcher {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://covid-19-coronavirus-statistics.p.rapidapi.com")
+            .baseUrl("https://covid-193.p.rapidapi.com")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 

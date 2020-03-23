@@ -32,7 +32,7 @@
             android:fontFamily="@font/lato_bold"
             android:text="Prevention"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
